@@ -8,6 +8,7 @@
 	mysqli_query($con,"DROP TABLE IF EXISTS videoGameMarkers;");
 	mysqli_query($con,"DROP TABLE IF EXISTS assets;");
 	mysqli_query($con,"DROP TABLE IF EXISTS userMaps;");
+	mysqli_query($con,"DROP TABLE IF EXISTS userPlaythroughs;");
 	mysqli_query($con,"DROP TABLE IF EXISTS mapMarkers;");
 	
 	mysqli_query($con,"CREATE TABLE users(
@@ -44,16 +45,30 @@
 		mapId integer,
 		assetId varchar(500)
 	);");
+	// whiterun 922, 1398
+	// morthal 1286, 1046
+	// solitude 1534, 868
+	// markarth 970, 272
+	// falkreath 438, 1084
+	// dawnstar 1518, 1438
+	// winterhold 1502, 1868
+	// windhelm 1146, 2000
+	// riften 392, 2268
 	mysqli_query($con,
 	"INSERT INTO videoGameMarkers(
 		videoGameId, idString, x, y, userId, score, status, title, body, mapId, assetId
 	)
 	VALUES 
-	(1, 'markarth_home', 230.7, 1020.7, 0, 0.0, 'public', 'Markarth', 'Shittiest town', 0, 'Markarth.png'),
-	(1,  'morthal_home',  1000.7, 1340.7, 0, 0, 'public', 'Morthal', 'Shittiest town', 0, 'Morthal.png'),
-	(1,  'falkreath_home',  1050.7, 450, 0, 0, 'public', 'Falkreath', 'Shittiest town', 0, 'Falkreath.png'),
-	(1,  'whiterun_home',  1350, 950, 0, 0, 'public', 'Whiterun', 'Shittiest town', 0, 'Whiterun.png'),
-	(1,  'solitude_home',  830, 1600, 0, 0, 'public', 'Solitude', 'Shittiest town', 0, 'Solitude.png');
+	(1,  'Whiterun_home', 1398, 922, 0, 0, 'canon', 'Whiterun', 'Shittiest town', 0, 'Whiterun.png'),
+	(1,  'Morthal_home', 1046, 1286, 0, 0, 'canon', 'Morthal', 'Shittiest town', 0, 'Morthal.png'),
+	(1,  'Solitude_home', 868, 1534, 0, 0, 'canon', 'Solitude', 'Shittiest town', 0, 'Solitude.png'),
+	(1,  'Markarth_home', 272, 970, 0, 0, 'canon', 'Markarth', 'Shittiest town', 0, 'Markarth.png'),
+	(1,  'Falkreath_home', 1084, 438, 0, 0, 'canon', 'Falkreath', 'Shittiest town', 0, 'Falkreath.png'),
+	(1,  'dawnstar_home',  1438, 1518, 0, 0, 'canon', 'Dawnstar', 'Shittiest town', 0, 'Dawnstar.png'),
+	(1,  'winterhold_home',  1868, 1502, 0, 0, 'canon', 'Winterhold', 'Shittiest town', 0, 'Winterhold.png'),
+	(1,  'windhelm_home',  2000, 1146, 0, 0, 'canon', 'Windhelm', 'Shittiest town', 0, 'Windhelm.png'),
+	(1,  'riften_home',  2268, 392, 0, 0, 'canon', 'Riften', 'Shittiest town', 0, 'Riften.png'),
+	(1,  'angies_camp',  1310, 340, 1, 0, 'public', 'Angies Camp', 'Best Teacher <3', 1, 'Point_of_Interest.png');
 	");
 	mysqli_query($con,"CREATE TABLE assets(
 		assetId SERIAL PRIMARY KEY,
@@ -69,13 +84,29 @@
 		userId integer,
 		dateAdded date
 	);");
+	mysqli_query($con,"CREATE TABLE userPlaythroughs(
+		playthroughId SERIAL PRIMARY KEY,
+		mapId integer,
+		videoGameId integer,
+		userId integer,
+		title varchar(500)
+	);");
+	mysqli_query($con,
+	"INSERT INTO userPlaythroughs(
+		mapId, videoGameId, userId, title
+	)
+	VALUES 
+		(1, 1, 1, 'Thoronir'),
+		(2, 1, 1, 'Malakai'),
+		(3, 1, 1, 'Taako');
+	");
 	mysqli_query($con,
 	"INSERT INTO userMaps(
 		userMapId, videoGameId, userId, dateAdded
 	)
 	VALUES 
-	(0, 1, 1, Now()),
-	(0, 4, 1, Now());
+		(0, 1, 1, Now()),
+		(0, 4, 1, Now());
 	");
 
 	mysqli_query($con,
@@ -88,16 +119,16 @@
 	");
 
 	mysqli_query($con,
-	"INSERT INTO videoGames(
-		name, coverPath, mapPath
-	)
-	VALUES 
-	('Skyrim', 'skyrim.png', 'skyrim.jpg'),
-	('Breath of the Wild', 'breathofthewild.png', 'breathofthewild.jpg'),
-	('Nier Automata', 'nierautomata.png', 'Nier Automata Map.png'),
-	('Grand Theft Auto V', 'gtav.png', 'gtav.jpg'),
-	('Xenoblade Chronicles X', 'xenobladechroniclesx.png', 'xenobladechroniclesx.jpg');
-	
+		"INSERT INTO videoGames(
+			name, coverPath, mapPath
+		)
+		VALUES 
+		('Skyrim', 'skyrim.png', 'skyrim.jpg'),
+		('Breath of the Wild', 'breathofthewild.png', 'breathofthewild.jpg'),
+		('Nier Automata', 'nierautomata.png', 'Nier Automata Map.png'),
+		('Grand Theft Auto V', 'gtav.png', 'gtav.jpg'),
+		('Xenoblade Chronicles X', 'xenobladechroniclesx.png', 'xenobladechroniclesx.jpg');
+
 	");
 
 	mysqli_close($con);
