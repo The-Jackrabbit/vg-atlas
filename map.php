@@ -115,6 +115,24 @@
 				display: none;
 				z-index: 100;
 			}
+			.add-point {
+				width: 100% !important;
+				background-color: lightgreen !important;
+				border: none !important;
+				color: white;
+			}
+			.hidden-inputs {
+				display:none;
+			}
+			.hidden-inputs input, .hidden-inputs select {
+				margin-top: 12pt;
+			}
+			.hidden-inputs input[type=submit] {
+				width: 100% !important;
+				background-color: #FFDD4A !important;
+				border: none !important;
+				color: white;
+			}
 		</style>
 		<script>
 		</script>
@@ -221,6 +239,12 @@
 								FROM videoGameMarkers
 								WHERE videoGameId = $_GET[gameId]
 								AND userId = $_SESSION[userId]
+								AND mapId = 0
+								UNION
+								SELECT *
+								FROM videoGameMarkers
+								WHERE videoGameId = $_GET[gameId]
+								AND userId = $_SESSION[userId]
 								AND mapId = $_GET[mapId];
 								;
 							");
@@ -233,7 +257,7 @@
 									});";
 									echo "
 									var marker = L.marker([$row[y] + $res[1],$row[x] - $res[0]], {icon: $row[idString]_icon});
-									var popup = L.popup({minWidth: 100, offset: L.point($res[0]/2, 0)}).setContent('<p>$row[title]</p>');
+									var popup = L.popup({minWidth: 100, maxWidth: 500, offset: L.point($res[0]/2, 0)}).setContent('<h2>$row[title]</h2><p>$row[body]</p>');
 									marker.bindPopup(popup);
 									marker.addTo(map);";
 								}
@@ -248,10 +272,40 @@
 						map.on('click', function(e) {
 							menu.setLatLng(L.latLng(e.latlng.lat, e.latlng.lng));
 							menu.setContent(
-								`<div class="mapmenu">
-									<p>x: ` + e.latlng.lat + `,  y: ` + e.latlng.lng + `</p>
-									<p>Add point</p>
-								</div>`);
+								`<form action="./Helpers/submitAddPoint.php" method="POST">
+									<div class="mapmenu">
+										<p>x: ` + e.latlng.lat + `,  y: ` + e.latlng.lng + `</p>
+										<input type="button" id="add-point" value="New Point" class="add-point">
+										<input type="hidden" name="x" value=" ` + e.latlng.lat + `">
+										<input type="hidden" name="y" value=" ` + e.latlng.lng + `">
+										<div class="hidden-inputs" id="hidden-inputs">
+											<input type="text" placeholder="Title" name="title">
+											<input type="text" placeholder="Description" name="description">
+											<select name="playthrough">
+												<option value="0" selected>All</option>
+											</select>
+											<select name="status">
+												<option value="private" selected>Private</option>
+												<option value="public" >Public</option>
+											</select>
+											<select name="asset">
+												<option value="safe_zone.png" selected>Safe</option>
+												<option value="neutral_zone.png">Neutral</option>
+												<option value="danger_zone.png">Danger</option>
+											</select>
+											<?php
+												echo "<input type='hidden' name='gameId' value='$_GET[gameId]'>";
+												if (!is_null($_GET[mapId])) {
+													echo "<input type='hidden' name='mapId' value='$_GET[mapId]'>";
+												} else {
+													echo "<input type='hidden' name='mapId' value='0'>";
+												}
+											?>
+											<input type="submit" value="Add Point">
+											
+										</div>
+									</div>
+								</form>`);
 							map.openPopup(menu);
     
 						});
@@ -331,6 +385,13 @@
 							?>
 						</form>`
 				)
+			})
+			$(document).on("click", "#add-point", function(e) {
+				$("#add-point").toggle();
+				$(".leaflet-popup-content").css("width", "min-content");
+				var init_width = $(this).parents(".leaflet-popup").css("width");
+				$(this).parent().find('#hidden-inputs').slideToggle();
+					//class="leaflet-popup-content"
 			})
 		</script>
    </body>
