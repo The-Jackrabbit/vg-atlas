@@ -188,10 +188,17 @@
 						$('#map').width()
 						var width  = img.naturalWidth;
 						var height = img.naturalHeight;
+						console.log(width);
+						console.log(height);
+						console.log(height*width);//4915200
+						// -1 = -(res)/4915202
+						// Math.floor(-(height*width)/4915200)
+						// min zoom -3
+						// y = -0.741ln(x) + 10.353
 
 						var map = L.map('map', {
 							crs: L.CRS.Simple,
-							minZoom: -1,
+							minZoom: -0.741*Math.log(height*width) + 10.353,
 							maxZoom: 1,
 							maxBoundsViscosity: 1.0
 						});
@@ -255,9 +262,14 @@
 									echo "var $row[idString]_icon = L.icon({
 										iconUrl: './Assets/Markers/$row[assetId]',
 									});";
+									$wiki_base = "http://elderscrolls.wikia.com/wiki/";
+									$body = "'<h2>$row[title]</h2><p>$row[body]</p>'";
+									if ($row["status"] == "canon") {
+										$body = "'<h2>$row[title]</h2><p>$row[body]</p><a href=\"$wiki_base$row[title]\">Wiki</a>'";
+									}
 									echo "
 									var marker = L.marker([$row[y] + $res[1],$row[x] - $res[0]], {icon: $row[idString]_icon});
-									var popup = L.popup({minWidth: 100, maxWidth: 500, offset: L.point($res[0]/2, 0)}).setContent('<h2>$row[title]</h2><p>$row[body]</p>');
+									var popup = L.popup({minWidth: 100, maxWidth: 500, offset: L.point($res[0]/2, 0)}).setContent($body);
 									marker.bindPopup(popup);
 									marker.addTo(map);";
 								}

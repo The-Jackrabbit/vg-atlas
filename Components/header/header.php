@@ -41,7 +41,7 @@
 				padding-right: 0pt;
 			}
 			a.callToAction {
-				background-color: #B23323;
+				background-color: red;
 				padding: 4pt !important;
 				border-radius: 4pt;
 				color: white !important;

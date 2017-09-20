@@ -12,32 +12,67 @@
 		<style>
 			div.login-form {
 				background-color: white;
-				width: min-content;
-				box-shadow: 3pt 3pt 10pt gray;
 				padding: 12pt;
 				text-align: center;
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translateY(-50%) translateX(-50%);
 			}
 			div.login-form input[type=submit] {
 				width: 100%;
+				max-width: 200pt;
+				height: 40pt;
+				border: none;
+				border-radius: 6pt !important;
 				background-color: dodgerblue;
 				color: white;
+				margin-top: 24pt;
 			}
 			div.login-form input {
-				margin: 4pt 0pt;
+				width: 100%;
+				border-radius: 0pt !important;
+				border: none;
+				margin: 4pt;
+				border-bottom: 1pt solid lightgray;
 			}
 			a.signup-redirect {
 				font-size: 7pt;
 				
 			}
-
+			.login-banner {
+				height: 200pt;
+				width: 100%;
+				background-color: white; 
+				position: absolute;
+			}
+			.login-banner svg {
+				width: 200pt;
+				height: 200pt;
+				position: relative;
+				top: -60pt;
+				transform: rotate(-30deg);
+			}
+			.login-banner svg path {
+				stroke: none;
+				fill: red;
+				
+			}
+			.banner-text {
+				z-index: 100;
+				font-size: 48pt;
+				font-weight: lighter;
+				text-align: center;
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.banner-padding {
+				padding-bottom: 200pt;
+			}
+			body {
+				background-color: white;
+			}
 		</style>
 	</head>
    <body>
-   		<?php
+		<?php
 			$actionLinks = Array(
 				"login.php" => "Login",
 				"signup.php" => "Signup"
@@ -47,18 +82,26 @@
 					"./Helpers/logout.php" => "Sign Out"
 				);
 			}
-         	$pkg = Array(
-            	"title" => "BackLog",
-					"title_url" => "dashboard.php",
-					"links" => Array(
-						"usermaps.php" => "Maps",
-						"create.php" => "Create"
-					),
-				"activeLink" => "",
-               	"actionLinks" => $actionLinks
-            );
-        	include("./Components/header/header.php");
-      	?>
+			$pkg = Array(
+				"title" => "BackLog",
+				"title_url" => "dashboard.php",
+				"links" => Array(
+					"usermaps.php" => "Maps",
+					"create.php" => "Create"
+				),
+			"activeLink" => "",
+					"actionLinks" => $actionLinks
+			);
+			include("./Components/header/header.php");
+		?>
+		<div class="login-banner">
+			<p class="banner-text">Login</p>
+			<?php
+				include("compass.svg");
+			?>
+			
+		</div>
+			<div class="banner-padding"></div>
 		<div class="max-inline">
 			<?php
 				if ($_GET["redirect"]) {
@@ -70,7 +113,7 @@
 					<input required type="text" placeholder="username" name="username">
 					<input required type="password" placeholder="password" name="password">
 					<input type="submit" value="Log In">
-					<a href="./signup.php" class="signup-redirect">Don't have an account?</a>
+					<div><a href="./signup.php" class="signup-redirect">Don't have an account?</a></div>
 				</form>
 			</div>
 		</div>

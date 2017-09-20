@@ -127,7 +127,8 @@
 		('Breath of the Wild', 'breathofthewild.png', 'breathofthewild.jpg'),
 		('Nier Automata', 'nierautomata.png', 'Nier Automata Map.png'),
 		('Grand Theft Auto V', 'gtav.png', 'gtav.jpg'),
-		('Xenoblade Chronicles X', 'xenobladechroniclesx.png', 'xenobladechroniclesx.jpg');
+		('Xenoblade Chronicles X', 'xenobladechroniclesx.png', 'xenobladechroniclesx.jpg'),
+		(\"Assassin's Creed IV: Black Flag\", 'ac4.png', 'ac4.jpg');
 
 	");
 
