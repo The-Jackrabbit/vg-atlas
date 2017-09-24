@@ -89,7 +89,7 @@
             	"title" => "BackLog",
 					"title_url" => "dashboard.php",
 					"links" => Array(
-						"usermaps.php" => "Maps",
+						"dashboard.php" => "Maps",
 						"create.php" => "Create"
 					),
 				"activeLink" => "",
@@ -100,7 +100,7 @@
 		<div class="login-banner">
 			<p class="banner-text">Signup</p>
 			<?php
-				include("compass-map.svg");
+				include("./Assets/UX-SVGs/compass-map.svg");
 			?>
 			
 		</div>

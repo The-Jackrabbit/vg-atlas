@@ -152,7 +152,7 @@
             	"title" => "BackLog",
 					"title_url" => "dashboard.php",
 					"links" => Array(
-						"usermaps.php" => "Maps",
+						"dashboard.php" => "Maps",
 						"create.php" => "Create"
 					),
 				"activeLink" => "",
@@ -170,7 +170,7 @@
 			if ($items->num_rows > 0) {
 				while ($row = $items->fetch_assoc()) {
 					echo "<div style='display: none'>
-						<img id='the-map-img' src='./Assets/$row[mapPath]'>
+						<img id='the-map-img' src='./Assets/Maps/$row[mapPath]'>
 					</div>";
 				}
 			}
@@ -213,7 +213,7 @@
 							include("./Helpers/disconnectFromDatabase.php");
 							if ($items->num_rows > 0) {
 								while ($row = $items->fetch_assoc()) {
-									echo "img_url = './Assets/$row[mapPath]'; ";
+									echo "img_url = './Assets/Maps/$row[mapPath]'; ";
 								}
 							}
 						?>
@@ -233,6 +233,9 @@
 						<?php
 							$zero = 0;
 							include("./Helpers/connectToDatabase.php");
+							if (is_null($_SESSION["userId"])) {
+								$_SESSION["userId"] = 0;
+							}
 							if (is_null($_GET["mapId"])) {
 								$_GET["mapId"] = 0;
 							}
@@ -347,7 +350,7 @@
 				</div>
 				<div class="links">
 					<div class="link">
-						<a  class="link-item"  href="./usermaps.php">Your Library</a>
+						<a  class="link-item"  href="./dashboard.php">Your Library</a>
 					</div>
 					<div class="link">
 						<p class="link-item" id="toggle-playthrough">Playthroughs<span class="add" id="add-playthrough">+</span></p>

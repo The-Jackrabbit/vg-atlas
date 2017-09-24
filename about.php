@@ -35,7 +35,7 @@
             	"title" => "BackLog",
 					"title_url" => "dashboard.php",
 					"links" => Array(
-						"usermaps.php" => "Maps",
+						"dashboard.php" => "Maps",
 						"create.php" => "Create"
 					),
 				"activeLink" => "",

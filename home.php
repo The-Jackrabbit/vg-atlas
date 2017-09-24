@@ -49,28 +49,32 @@
 		</style>
 	</head>
    <body>
-   		<?php
+		<?php
 			$actionLinks = Array(
 				"login.php" => "Login",
 				"signup.php" => "Signup"
 			);
-			if ($_SESSION["userId"] !== null) {
+			$links = Array(
+				"./homes.php" => "Games",
+				"./about.php" => "About Us",
+			);
+			if (!is_null($_SESSION["userId"])) {
 				$actionLinks = Array(
 					"./Helpers/logout.php" => "Sign Out"
 				);
+				$links = Array(
+					"./dashboard.php" => "Dashboard"
+				);
 			}
-         	$pkg = Array(
-            	"title" => "BackLog",
-					"title_url" => "dashboard.php",
-					"links" => Array(
-						"usermaps.php" => "Maps",
-						"create.php" => "Create"
-					),
-				"activeLink" => "",
-               	"actionLinks" => $actionLinks
-            );
-        	include("./Components/header/header.php");
-      	?>
+			$pkg = Array(
+				"title" => "BackLog",
+				"title_url" => "dashboard.php",
+				"links" => $links,
+			"activeLink" => "",
+					"actionLinks" => $actionLinks
+			);
+			include("./Components/header/header.php");
+		?>
 		
 		<div class="max-inline">
 			<form action="./search.php" method="POST">

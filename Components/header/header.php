@@ -27,7 +27,7 @@
          }
          td.title {
             width: 170pt;
-				padding-right: 20pt;
+				padding-right: 10pt;
 				vertical-align: middle;
          }
          table.header {
@@ -68,6 +68,18 @@
 			.activeLink {
 				color: #B23323 !important;
 				font-weight: bold;
+			}
+			svg.logo {
+				width: 150pt;
+				height: 50pt;
+			}
+			path#logo-letters {
+				stroke: none;
+				fill: black;
+			}
+			path#logo-compass {
+				stroke:none;
+				fill: red;
 			}
       </style>
 		<script>
@@ -139,8 +151,8 @@
             <table id="header" class="header">
                <tr id="header-row">
                   <td id="title" class="title">
-                     <a href="./home.php">
-							<img style="width: 165pt" src="./Assets/logo.gif">
+                     <a class="logo-container" href="./home.php">
+								<?php include("./Assets/logo.svg");?>
                  
 							</a>
 						</td>

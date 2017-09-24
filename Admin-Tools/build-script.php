@@ -9,6 +9,7 @@
 	mysqli_query($con,"DROP TABLE IF EXISTS assets;");
 	mysqli_query($con,"DROP TABLE IF EXISTS userMaps;");
 	mysqli_query($con,"DROP TABLE IF EXISTS userPlaythroughs;");
+	mysqli_query($con,"DROP TABLE IF EXISTS userGameVisits;");
 	mysqli_query($con,"DROP TABLE IF EXISTS mapMarkers;");
 	
 	mysqli_query($con,"CREATE TABLE users(
@@ -129,6 +130,25 @@
 		('Grand Theft Auto V', 'gtav.png', 'gtav.jpg'),
 		('Xenoblade Chronicles X', 'xenobladechroniclesx.png', 'xenobladechroniclesx.jpg'),
 		(\"Assassin's Creed IV: Black Flag\", 'ac4.png', 'ac4.jpg');
+
+	");
+
+	mysqli_query($con,"CREATE TABLE userGameVisits(
+		userGameVisitId SERIAL PRIMARY KEY,
+		userId integer,
+		visitTimeStamp timestamp,
+		gameId integer,
+		playthroughId integer
+	);");
+
+	mysqli_query($con,
+	"INSERT INTO userGameVisits(
+		userId, visitTimeStamp, gameId, playthroughId
+	)
+	VALUES 
+		(1, Now(), 1, 1),
+		(1, TimeStampAdd(DAY, -1,Now()), 1, 1),
+		(1, TimeStampAdd(DAY, -10,Now()), 2, 1);
 
 	");
 

@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="./Assets/reset.css" />
       <link rel="stylesheet" href="./Assets/styles.css" />
 		<link rel="icon" href="./Assets/favicon.ico" />
+		<script src="./Assets/jquery.min.js"></script>
 		<style>
 			div.login-form {
 				background-color: white;
@@ -46,7 +47,7 @@
 				width: 200pt;
 				height: 200pt;
 				position: relative;
-				top: -60pt;
+				top: 0pt;
 				transform: rotate(-30deg);
 			}
 			.login-banner svg path {
@@ -62,6 +63,7 @@
 				position: relative;
 				top: 50%;
 				transform: translateY(-50%);
+				line-height:0;
 			}
 			.banner-padding {
 				padding-bottom: 200pt;
@@ -86,7 +88,7 @@
 				"title" => "BackLog",
 				"title_url" => "dashboard.php",
 				"links" => Array(
-					"usermaps.php" => "Maps",
+					"dashboard.php" => "Maps",
 					"create.php" => "Create"
 				),
 			"activeLink" => "",
@@ -97,7 +99,7 @@
 		<div class="login-banner">
 			<p class="banner-text">Login</p>
 			<?php
-				include("compass.svg");
+				include("./Assets/UX-SVGs/compass.svg");
 			?>
 			
 		</div>
